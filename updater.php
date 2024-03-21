@@ -17,8 +17,8 @@ function fetchDataAndSave($url, $filename)
 }
 
 // Fetch and save data from https://c26.sub-v2.workers.dev/frag to custom.txt
-fetchDataAndSave('https://c26.sub-v2.workers.dev/frag', 'custom.txt');
+fetchDataAndSave('https://c26.sub-v2.workers.dev/frag', 'custom');
 
 // Fetch and save data from https://c26.sub-v2.workers.dev/sub to normal.txt
-fetchDataAndSave('https://c26.sub-v2.workers.dev/sub', 'normal.txt');
+fetchDataAndSave('https://c26.sub-v2.workers.dev/sub', 'normal');
 ?>
