@@ -1,4 +1,1 @@
-vless://d342d11e-d424-4583-b36e-524ab1f0afa4@kifpool.me:2053?encryption=none&security=tls&type=ws&host=FABRICATE.QHHOUTWM.WORKERS.DEV&sni=FABRICATE.QHHOUTWM.WORKERS.DEV&fp=randomized&alpn=http/1.1&path=%2FakBP%3Fed%3D2048#Worker%20-%20fabricate.qhhoutwm.workers.dev
-vless://d342d11e-d424-4583-b36e-524ab1f0afa4@kayedi.ir:2083?encryption=none&security=tls&type=ws&host=STUMBLE.GDHNTRTYU.WORKERS.DEV&sni=STUMBLE.GDHNTRTYU.WORKERS.DEV&fp=randomized&alpn=http/1.1&path=%2FtLiv%3Fed%3D2048#Worker%20-%20stumble.gdhntrtyu.workers.dev
-vless://d342d11e-d424-4583-b36e-524ab1f0afa4@kifpool.me:2083?encryption=none&security=tls&type=ws&host=TALENTED.ABCDFGOP.WORKERS.DEV&sni=TALENTED.ABCDFGOP.WORKERS.DEV&fp=randomized&alpn=http/1.1&path=%2FOEpt%3Fed%3D2048#Worker%20-%20talented.abcdfgop.workers.dev
-vless://d342d11e-d424-4583-b36e-524ab1f0afa4@kifpool.me:8443?encryption=none&security=tls&type=ws&host=HISTORIAN.HIRMANRO.COM&sni=HISTORIAN.HIRMANRO.COM&fp=randomized&alpn=http/1.1&path=%2FusVY%3Fed%3D2048#Worker%20-%20historian.hirmanro.com
+ReferenceError: count is not defined
