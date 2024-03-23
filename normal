@@ -1,1 +1,1 @@
-ReferenceError: count is not defined
+TypeError: Assignment to constant variable.
