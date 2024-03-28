@@ -1,24 +1,28 @@
 <?php
-// Enable error reporting
-ini_set("display_errors", 1);
-ini_set("display_startup_errors", 1);
-error_reporting(E_ERROR | E_PARSE);
 
-// Function to fetch data from URL and save it to a file
-function fetchDataAndSave($url, $filename)
-{
-    $data = file_get_contents($url);
-    if ($data !== false) {
-        file_put_contents($filename, $data);
-        echo "Data fetched from $url and saved to $filename\n";
+function get_data_from_url($url) {
+    $response = file_get_contents($url);
+    if ($response !== false) {
+        return $response;
     } else {
-        echo "Failed to fetch data from $url\n";
+        echo "Failed to fetch data from $url";
+        return false;
     }
 }
 
-// Fetch and save data from https://c26.sub-v2.workers.dev/frag to custom.txt
-fetchDataAndSave('https://c26.sub-v2.workers.dev/frag', 'custom');
+function replace_and_save($text, $domains, $filename) {
+    $content = preg_replace_callback('/speedtest\.net/', function($matches) use ($domains) {
+        return $domains[array_rand($domains)];
+    }, $text);
+    file_put_contents($filename, $content);
+    echo "Data saved to $filename";
+}
 
-// Fetch and save data from https://c26.sub-v2.workers.dev/sub to normal.txt
-fetchDataAndSave('https://c26.sub-v2.workers.dev/sub', 'normal');
+$custom = get_data_from_url("https://c26.sub-v2.workers.dev/frag");
+$normal = get_data_from_url("https://c26.sub-v2.workers.dev/sub");
+$domains = explode("\n", get_data_from_url("https://raw.githubusercontent.com/Msyagop/cf-clean-domain/main/iran.txt"));
+
+replace_and_save($custom, $domains, 'custom');
+replace_and_save($normal, $domains, 'normal');
+
 ?>
