@@ -18,28 +18,11 @@ function replace_and_save($text, $domains, $filename) {
     echo "Data saved to $filename";
 }
 
-$custom_data = [];
-
-$custom_json = get_data_from_url("https://raw.githubusercontent.com/IranianCypherpunks/Xray/main/Sub");
-$custom_data[] = json_decode($custom_json, true);
-
+$custom = get_data_from_url("https://raw.githubusercontent.com/IranianCypherpunks/Xray/main/Sub");
 $normal = get_data_from_url("https://c26.sub-v2.workers.dev/sub");
 $domains = explode("\n", get_data_from_url("https://raw.githubusercontent.com/Msyagop/cf-clean-domain/main/iran.txt"));
 
-// Fetching additional data from the URL and appending it to the custom data array
-$additional_json = get_data_from_url("https://raw.githubusercontent.com/a4b3c/Help/main/manual");
-$additional_data = json_decode($additional_json, true);
-
-if ($additional_data !== null) {
-    foreach ($additional_data as $item) {
-        $custom_data[] = $item;
-    }
-} else {
-    echo "Failed to decode additional data JSON.";
-}
-
-file_put_contents('custom', json_encode($custom_data, JSON_UNESCAPED_UNICODE));
-
+replace_and_save($custom, $domains, 'custom');
 replace_and_save($normal, $domains, 'normal');
 
 ?>
