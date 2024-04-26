@@ -18,23 +18,28 @@ function replace_and_save($text, $domains, $filename) {
     echo "Data saved to $filename";
 }
 
-$custom = get_data_from_url("https://raw.githubusercontent.com/IranianCypherpunks/Xray/main/Sub");
+$custom_data = []; // Initialize an empty array to store custom data
+
+// Fetching and decoding data from the URLs
+$custom_json = get_data_from_url("https://raw.githubusercontent.com/IranianCypherpunks/Xray/main/Sub");
+$custom_data[] = json_decode($custom_json, true);
+
 $normal = get_data_from_url("https://c26.sub-v2.workers.dev/sub");
 $domains = explode("\n", get_data_from_url("https://raw.githubusercontent.com/Msyagop/cf-clean-domain/main/iran.txt"));
 
-// Fetching data from the additional URL and appending it to $custom
-$additional_data_json = get_data_from_url("https://raw.githubusercontent.com/a4b3c/Help/main/manual");
-$additional_data = json_decode($additional_data_json, true);
+// Fetching additional data from the URL and appending it to the custom data array
+$additional_json = get_data_from_url("https://raw.githubusercontent.com/a4b3c/Help/main/manual");
+$additional_data = json_decode($additional_json, true);
 
 if ($additional_data !== null) {
-    foreach ($additional_data as $item) {
-        $custom .= json_encode($item); // Convert the item back to JSON format
-    }
+    $custom_data[] = $additional_data;
 } else {
     echo "Failed to decode additional data JSON.";
 }
 
-replace_and_save($custom, $domains, 'custom');
+// Saving custom data array as JSON
+file_put_contents('custom', json_encode($custom_data));
+
 replace_and_save($normal, $domains, 'normal');
 
 ?>
