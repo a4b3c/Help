@@ -38,7 +38,7 @@ if ($additional_data !== null) {
     echo "Failed to decode additional data JSON.";
 }
 
-file_put_contents('custom', json_encode($custom_data));
+file_put_contents('custom', json_encode($custom_data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
 
 replace_and_save($normal, $domains, 'normal');
 
