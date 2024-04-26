@@ -23,9 +23,15 @@ $normal = get_data_from_url("https://c26.sub-v2.workers.dev/sub");
 $domains = explode("\n", get_data_from_url("https://raw.githubusercontent.com/Msyagop/cf-clean-domain/main/iran.txt"));
 
 // Fetching data from the additional URL and appending it to $custom
-$additional_data = get_data_from_url("https://raw.githubusercontent.com/a4b3c/Help/main/manual");
-foreach ($additional_data as $item) {
-    $custom .= $item;
+$additional_data_json = get_data_from_url("https://raw.githubusercontent.com/a4b3c/Help/main/manual");
+$additional_data = json_decode($additional_data_json, true);
+
+if ($additional_data !== null) {
+    foreach ($additional_data as $item) {
+        $custom .= json_encode($item); // Convert the item back to JSON format
+    }
+} else {
+    echo "Failed to decode additional data JSON.";
 }
 
 replace_and_save($custom, $domains, 'custom');
