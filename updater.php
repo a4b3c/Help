@@ -18,7 +18,7 @@ function replace_and_save($text, $domains, $filename) {
     echo "Data saved to $filename";
 }
 
-$custom = get_data_from_url("https://raw.githubusercontent.com/IranianCypherpunks/Xray/main/Sub");
+$custom = get_data_from_url("https://raw.githubusercontent.com/IranianCypherpunks/SingBox/main/Sub");
 $normal = get_data_from_url("https://c26.sub-v2.workers.dev/sub");
 $domains = explode("\n", get_data_from_url("https://raw.githubusercontent.com/Msyagop/cf-clean-domain/main/iran.txt"));
 
