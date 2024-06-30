@@ -1,1 +1,269 @@
-{"dns":{"hosts":{"domain:googleapis.cn":"googleapis.com"},"servers":[{"address":"fakedns","domains":["geosite:cn"]},"https://94.140.14.14/dns-query",{"address":"https://94.140.14.14/dns-query","domains":["geosite:cn","geosite:geolocation-cn"],"expectIPs":["geoip:cn"],"port":53}]},"fakedns":[{"ipPool":"198.18.0.0/15","poolSize":10000}],"inbounds":[{"listen":"127.0.0.1","port":10808,"protocol":"socks","settings":{"auth":"noauth","udp":true,"userLevel":8},"sniffing":{"destOverride":["http","tls","fakedns"],"enabled":true,"routeOnly":true},"tag":"socks"},{"listen":"127.0.0.1","port":10809,"protocol":"http","settings":{"userLevel":8},"tag":"http"},{"listen":"127.0.0.1","port":10853,"protocol":"dokodemo-door","settings":{"address":"1.1.1.1","network":"tcp,udp","port":53},"tag":"dns-in"}],"log":{"loglevel":"none"},"outbounds":[{"mux":{"concurrency":1,"enabled":true,"xudpConcurrency":1,"xudpProxyUDP443":"reject"},"protocol":"vless","settings":{"vnext":[{"address":"c.88981401.xyz","port":443,"users":[{"encryption":"none","flow":"","id":"5bdf790f-0af2-4481-a624-41b66e7e3489","level":8,"security":"auto"}]}]},"streamSettings":{"network":"ws","security":"tls","sockopt":{"dialerProxy":"fragment"},"tlsSettings":{"allowInsecure":false,"alpn":["http/1.1"],"fingerprint":"chrome","publicKey":"","serverName":"cdn.ircp.online","shortId":"","show":false,"spiderX":""},"wsSettings":{"headers":{"Host":"cdn.ircp.online"},"path":"/@ln2ray?ed=2560"}},"tag":"proxy"},{"protocol":"freedom","settings":{"domainStrategy":"UseIP"},"tag":"direct"},{"protocol":"blackhole","settings":{"response":{"type":"http"}},"tag":"block"},{"protocol":"freedom","settings":{"fragment":{"interval":"0","length":"10-20","packets":"tlshello"}},"streamSettings":{"network":"tcp","security":"","sockopt":{"TcpNoDelay":true,"mark":255}},"tag":"fragment"},{"protocol":"dns","tag":"dns-out"}],"remarks":"🇳🇱 𝐈𝐑𝐂𝐏 | @Ln2Ray","routing":{"domainStrategy":"AsIs","rules":[{"inboundTag":["dns-in"],"outboundTag":"dns-out"},{"domain":["domain:googleapis.cn"],"outboundTag":"proxy"},{"ip":["geoip:private"],"outboundTag":"direct"},{"ip":["geoip:cn"],"outboundTag":"direct"},{"domain":["geosite:cn"],"outboundTag":"direct"},{"domain":["geosite:geolocation-cn"],"outboundTag":"direct"},{"outboundTag":"proxy","port":"0-65535"}]}}
+{
+  "log": {
+    "disabled": true,
+    "level": "panic"
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "Internet-dns",
+        "address": "https://8.8.8.8/dns-query",
+        "address_resolver": "direct-dns",
+        "address_strategy": "prefer_ipv6",
+        "strategy": "prefer_ipv6",
+        "detour": "Internet"
+      },
+      {
+        "tag": "Best Latency-dns",
+        "address": "fakeip",
+        "address_resolver": "direct-dns",
+        "address_strategy": "prefer_ipv6",
+        "strategy": "prefer_ipv6",
+        "detour": "Best Latency"
+      },
+      {
+        "tag": "direct-dns",
+        "address": "local",
+        "address_strategy": "prefer_ipv6",
+        "strategy": "prefer_ipv6",
+        "detour": "direct"
+      },
+      {
+        "tag": "block-dns",
+        "address": "rcode://success"
+      }
+    ],
+    "rules": [
+      {
+        "domain_suffix": [
+          "h.88981401.xyz",
+          "arvancloudstatus.ir"
+        ],
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Internet",
+        "server": "Internet-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "Best Latency",
+        "server": "Best Latency-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "direct",
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      },
+      {
+        "outbound": "any",
+        "server": "direct-dns",
+        "rewrite_ttl": 20
+      }
+    ],
+    "fakeip": {
+      "enabled": true,
+      "inet4_range": "198.18.0.0/15"
+    },
+    "strategy": "prefer_ipv6",
+    "disable_expire": true
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "tun0",
+      "mtu": 9000,
+      "inet4_address": "172.19.0.1/30",
+      "auto_route": true,
+      "strict_route": true,
+      "stack": "mixed",
+      "sniff": true
+    },
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 2080,
+      "sniff": true,
+      "domain_strategy": "prefer_ipv6"
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "Internet",
+      "outbounds": [
+        "Best Latency",
+        "🇳🇱 𝐈𝐑𝐂𝐏\n@Ln2Ray § hy2+ech",
+        "🇳🇱 𝐈𝐑𝐂𝐏\n@Ln2Ray § vl+ws+tls+cdn+frag",
+        "🇳🇱 𝐈𝐑𝐂𝐏 | 𝟏 | 𝐢𝐩𝐯𝟔\n@Ln2Ray § hy2+ech",
+        "🇳🇱 𝐈𝐑𝐂𝐏 | 𝟐 | 𝐢𝐩𝐯𝟔\n@Ln2Ray § hy2+ech"
+      ]
+    },
+    {
+      "type": "urltest",
+      "tag": "Best Latency",
+      "outbounds": [
+        "🇳🇱 𝐈𝐑𝐂𝐏\n@Ln2Ray § hy2+ech",
+        "🇳🇱 𝐈𝐑𝐂𝐏\n@Ln2Ray § vl+ws+tls+cdn+frag",
+        "🇳🇱 𝐈𝐑𝐂𝐏 | 𝟏 | 𝐢𝐩𝐯𝟔\n@Ln2Ray § hy2+ech",
+        "🇳🇱 𝐈𝐑𝐂𝐏 | 𝟐 | 𝐢𝐩𝐯𝟔\n@Ln2Ray § hy2+ech"
+      ],
+      "url": "http://www.google.com/generate_204",
+      "interval": "10m0s",
+      "tolerance": 50,
+      "idle_timeout": "30m0s"
+    },
+    {
+      "type": "hysteria2",
+      "tag": "🇳🇱 𝐈𝐑𝐂𝐏\n@Ln2Ray § hy2+ech",
+      "domain_strategy": "prefer_ipv6",
+      "server": "h.88981401.xyz",
+      "server_port": 443,
+      "obfs": {
+        "type": "salamander",
+        "password": "@ln2ray-5bdf790f-0af2-4481-a624-41b66e7e3489"
+      },
+      "password": "@ln2ray-5bdf790f-0af2-4481-a624-41b66e7e3489",
+      "tls": {
+        "enabled": true,
+        "server_name": "let-him-cook.ircp.online",
+        "alpn": "h3",
+        "min_version": "1.3",
+        "max_version": "1.3",
+        "ech": {
+          "enabled": true,
+          "pq_signature_schemes_enabled": true,
+          "config": [
+            "-----BEGIN ECH CONFIGS-----",
+            "AFf+DQBTAAAgACCc2kqEYGusiYc5fj1smMpQJYQLckpS1bgOaCDLvoiofgAIAAEA",
+            "AQABAAMAIFstLXBxLXNpZ25hdHVyZS1zY2hlbWVzLWVuYWJsZWRdAAA=",
+            "-----END ECH CONFIGS-----"
+          ]
+        }
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "🇳🇱 𝐈𝐑𝐂𝐏\n@Ln2Ray § vl+ws+tls+cdn+frag",
+      "domain_strategy": "prefer_ipv6",
+      "server": "arvancloudstatus.ir",
+      "server_port": 443,
+      "uuid": "5bdf790f-0af2-4481-a624-41b66e7e3489",
+      "tls": {
+        "enabled": true,
+        "server_name": "cdn.ircp.online",
+        "alpn": "http/1.1",
+        "min_version": "1.3",
+        "max_version": "1.3",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "transport": {
+        "type": "ws",
+        "path": "/@ln2ray",
+        "headers": {
+          "Host": "cdn.ircp.online"
+        }
+      },
+      "packet_encoding": "xudp"
+    },
+    {
+      "type": "hysteria2",
+      "tag": "🇳🇱 𝐈𝐑𝐂𝐏 | 𝟏 | 𝐢𝐩𝐯𝟔\n@Ln2Ray § hy2+ech",
+      "server": "2a12:a800:1:1:194:26:192:216",
+      "server_port": 443,
+      "obfs": {
+        "type": "salamander",
+        "password": "@ln2ray-5bdf790f-0af2-4481-a624-41b66e7e3489"
+      },
+      "password": "@ln2ray-5bdf790f-0af2-4481-a624-41b66e7e3489",
+      "tls": {
+        "enabled": true,
+        "server_name": "let-him-cook.ircp.online",
+        "alpn": "h3",
+        "min_version": "1.3",
+        "max_version": "1.3",
+        "ech": {
+          "enabled": true,
+          "pq_signature_schemes_enabled": true,
+          "config": [
+            "-----BEGIN ECH CONFIGS-----",
+            "AFf+DQBTAAAgACCc2kqEYGusiYc5fj1smMpQJYQLckpS1bgOaCDLvoiofgAIAAEA",
+            "AQABAAMAIFstLXBxLXNpZ25hdHVyZS1zY2hlbWVzLWVuYWJsZWRdAAA=",
+            "-----END ECH CONFIGS-----"
+          ]
+        }
+      }
+    },
+    {
+      "type": "hysteria2",
+      "tag": "🇳🇱 𝐈𝐑𝐂𝐏 | 𝟐 | 𝐢𝐩𝐯𝟔\n@Ln2Ray § hy2+ech",
+      "server": "2a09:7c44:0:140::1",
+      "server_port": 443,
+      "obfs": {
+        "type": "salamander",
+        "password": "@ln2ray-5bdf790f-0af2-4481-a624-41b66e7e3489"
+      },
+      "password": "@ln2ray-5bdf790f-0af2-4481-a624-41b66e7e3489",
+      "tls": {
+        "enabled": true,
+        "server_name": "let-him-cook.ircp.online",
+        "alpn": "h3",
+        "min_version": "1.3",
+        "max_version": "1.3",
+        "ech": {
+          "enabled": true,
+          "pq_signature_schemes_enabled": true,
+          "config": [
+            "-----BEGIN ECH CONFIGS-----",
+            "AFf+DQBTAAAgACCc2kqEYGusiYc5fj1smMpQJYQLckpS1bgOaCDLvoiofgAIAAEA",
+            "AQABAAMAIFstLXBxLXNpZ25hdHVyZS1zY2hlbWVzLWVuYWJsZWRdAAA=",
+            "-----END ECH CONFIGS-----"
+          ]
+        }
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    }
+  ],
+  "route": {
+    "rules": [
+      {
+        "port": 53,
+        "outbound": "dns-out"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      }
+    ],
+    "final": "Internet",
+    "auto_detect_interface": true,
+    "override_android_vpn": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "path": "cache.db",
+      "cache_id": "ircp",
+      "store_fakeip": true,
+      "rdrc_timeout": "168h0m0s"
+    }
+  }
+}
