@@ -1,28 +1,51 @@
 <?php
+// File paths
+$ipsFile = 'ips.txt';
+$domainsFile = 'domains.txt';
+$outputFile = 'normal';
 
-function get_data_from_url($url) {
-    $response = file_get_contents($url);
-    if ($response !== false) {
-        return $response;
-    } else {
-        echo "Failed to fetch data from $url";
-        return false;
-    }
+// Read the content of the ips.txt and domains.txt
+$ips = file($ipsFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+$domains = file($domainsFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+
+// Check if both files are not empty
+if (empty($ips) || empty($domains)) {
+    die("Error: Either ips.txt or domains.txt is empty.\n");
 }
 
-function replace_and_save($text, $domains, $filename) {
-    $content = preg_replace_callback('/speedtest\.net/', function($matches) use ($domains) {
-        return $domains[array_rand($domains)];
-    }, $text);
-    file_put_contents($filename, $content);
-    echo "Data saved to $filename";
+// Template text with placeholders
+$template = 'vless://d342d11e-d424-4583-b36e-524ab1f0afa4@$ips:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=$domains&fp=randomized&type=ws&sni=$domains#Server+-+$serverNumber';
+
+// Open the output file for writing
+$output = fopen($outputFile, 'w');
+
+if (!$output) {
+    die("Error: Unable to open output file for writing.\n");
 }
 
-$custom = get_data_from_url("https://raw.githubusercontent.com/IranianCypherpunks/SingBox/main/Sub");
-$normal = get_data_from_url("https://c26.sub-v2.workers.dev/sub");
-$domains = explode("\n", get_data_from_url("https://raw.githubusercontent.com/Msyagop/cf-clean-domain/main/iran.txt"));
+// Counter for the server number
+$serverNumber = 1;
 
-replace_and_save($custom, $domains, 'custom');
-replace_and_save($normal, $domains, 'normal');
+// Loop through the domains and replace placeholders in the template
+foreach ($domains as $domainIndex => $domain) {
+    // Get the corresponding IP (use modulo to loop around IPs if they run out)
+    $ip = $ips[$domainIndex % count($ips)];
+    
+    // Replace placeholders in the template
+    $entry = str_replace(
+        ['$ips', '$domains', '$serverNumber'], 
+        [$ip, $domain, $serverNumber], 
+        $template
+    );
 
-?>
+    // Write the entry to the output file
+    fwrite($output, $entry . PHP_EOL);
+
+    // Increment the server number for the next entry
+    $serverNumber++;
+}
+
+// Close the output file
+fclose($output);
+
+echo "Finished writing to $outputFile\n";
