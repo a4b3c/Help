@@ -27,9 +27,9 @@ if (!$output) {
 $serverNumber = 1;
 
 // Loop through the domains and replace placeholders in the template
-foreach ($domains as $domainIndex => $domain) {
-    // Get the corresponding IP (use modulo to loop around IPs if they run out)
-    $ip = $ips[$domainIndex % count($ips)];
+foreach ($domains as $domain) {
+    // Select a random IP from the ips array
+    $ip = $ips[array_rand($ips)];
     
     // Replace placeholders in the template
     $entry = str_replace(
