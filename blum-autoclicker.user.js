@@ -64,7 +64,7 @@ try {
             setTimeout(() => {
                 clickElement(element);
                 gameStats.score++;
-            }, 1000);
+            }, 600);
         }
     }
 
