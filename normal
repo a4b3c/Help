@@ -1,4 +1,4 @@
-vless://d342d11e-d424-4583-b36e-524ab1f0afa4@199.232.1.255:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=ncc.gov.ir&fp=randomized&type=ws&sni=ncc.gov.ir#Server+-+1
-vless://d342d11e-d424-4583-b36e-524ab1f0afa4@199.232.32.140:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=irica.gov.ir&fp=randomized&type=ws&sni=irica.gov.ir#Server+-+2
-vless://d342d11e-d424-4583-b36e-524ab1f0afa4@199.232.5.149:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=195.cra.ir&fp=randomized&type=ws&sni=195.cra.ir#Server+-+3
-vless://d342d11e-d424-4583-b36e-524ab1f0afa4@199.232.5.96:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=netsanjplus.ir&fp=randomized&type=ws&sni=netsanjplus.ir#Server+-+4
+vless://d342d11e-d424-4583-b36e-524ab1f0afa4@140.248.65.255:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=ncc.gov.ir&fp=randomized&type=ws&sni=ncc.gov.ir#Server+-+1
+vless://d342d11e-d424-4583-b36e-524ab1f0afa4@104.156.81.134:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=irica.gov.ir&fp=randomized&type=ws&sni=irica.gov.ir#Server+-+2
+vless://d342d11e-d424-4583-b36e-524ab1f0afa4@104.156.85.81:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=195.cra.ir&fp=randomized&type=ws&sni=195.cra.ir#Server+-+3
+vless://d342d11e-d424-4583-b36e-524ab1f0afa4@104.156.85.194:443?path=%2F7ghW%3Fed%3D2048&security=tls&encryption=none&alpn=http/1.1&host=netsanjplus.ir&fp=randomized&type=ws&sni=netsanjplus.ir#Server+-+4
